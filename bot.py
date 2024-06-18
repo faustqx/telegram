@@ -16,13 +16,20 @@ hourly_message = (
     "Sevgili Tadinda Guven Ve Kalite Ön Planda"
 )
 
+# Grupların kullanıcı adlarını `gruplar.txt` dosyasından oku
+with open('gruplar.txt', 'r') as file:
+    group_usernames = [line.strip() for line in file.readlines()]
+
 async def send_hourly_message(client):
     while True:
-        print("Tüm sohbetlere mesaj gönderiliyor...")
-        async for dialog in client.iter_dialogs():
-            if dialog.is_user and not dialog.entity.bot:  # Kullanıcılara mesaj gönder, botlara değil
-                await client.send_message(dialog.id, hourly_message)
-        print("Mesajlar gönderildi.")
+        print("Belirtilen gruplara mesaj gönderiliyor...")
+        for group_username in group_usernames:
+            try:
+                entity = await client.get_entity(group_username)
+                await client.send_message(entity, hourly_message)
+                print(f"{group_username} grubuna mesaj gönderildi.")
+            except Exception as e:
+                print(f"{group_username} grubuna mesaj gönderilemedi: {e}")
         await asyncio.sleep(3600)  # 1 saat bekle
 
 async def main():
@@ -40,4 +47,3 @@ async def main():
 
 if __name__ == '__main__':
     asyncio.run(main())
-    
