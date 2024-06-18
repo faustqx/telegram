@@ -1,17 +1,16 @@
 {
-  "name": "telegram-welcome-bot",
+  "name": "telegram",
   "version": "1.0.0",
-  "description": "Telegram botu, ilk 4 mesaja sırayla yanıt verir.",
+  "description": "Yeni yazan kullanıcılara tek seferlik karşılama mesajı gönderen Telegram botu.",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
   },
   "dependencies": {
     "telegram-mtproto": "^4.0.3-beta",
-    "bluebird": "^3.7.2",
     "input": "^0.0.12",
     "mtproto-storage-fs": "^4.0.3-beta"
   },
-  "author": "devillerden",
+  "author": "devilhazretleri",
   "license": "ISC"
 }
