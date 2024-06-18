@@ -2,18 +2,28 @@ from telethon import TelegramClient, events
 import asyncio
 
 # API kimlik bilgilerinizi buraya yazın
-api_id = '21871272'
-api_hash = '57efa4949cd41dccd628c04b8507ff2b'
-phone_number = '+12563655354'
+api_id = '27777717'
+api_hash = '7591c98b80d35f58d380e68e526ac589'
+phone_number = '+905318635833'
 
-# Kullanıcının mesajlarına verilecek yanıtlar
-response_map = {
-    0: 'Merhaba! Nasıl yardımcı olabilirim?',
-    1: 'Fiyat listesi: Example 2500₺, 5000₺'
-}
+# Her bir saatlik mesaj
+hourly_message = (
+    "💗 KENDİME AİT YERİM YOK 💗\n\n"
+    "🔥SEVGİLİ TADINDA GÖRÜŞÜYORUM 🔥\n\n"
+    "🏠 EVE. OTELE. APARTA REZiDANS. GELiYORUM\n\n"
+    "💸 ÜCRET ELDEN\n\n"
+    "❗️ÖNDEN ÖDEME YOK\n\n"
+    "Sevgili Tadinda Guven Ve Kalite Ön Planda"
+)
 
-# Kullanıcıların yanıt sırasını takip etmek için bir sözlük kullanıyoruz
-user_messages_count = {}
+async def send_hourly_message(client):
+    while True:
+        print("Tüm sohbetlere mesaj gönderiliyor...")
+        async for dialog in client.iter_dialogs():
+            if dialog.is_user and not dialog.entity.bot:  # Kullanıcılara mesaj gönder, botlara değil
+                await client.send_message(dialog.id, hourly_message)
+        print("Mesajlar gönderildi.")
+        await asyncio.sleep(3600)  # 1 saat bekle
 
 async def main():
     # TelegramClient'i başlatma
@@ -22,26 +32,12 @@ async def main():
     # Giriş yapma
     await client.start(phone_number)
 
-    @client.on(events.NewMessage)
-    async def handler(event):
-        sender = await event.get_sender()
-        sender_id = sender.id
-        message_text = event.raw_text.lower()
-
-        # Kullanıcının mesaj sayısını al veya sıfırla
-        if sender_id not in user_messages_count:
-            user_messages_count[sender_id] = 0
-        else:
-            user_messages_count[sender_id] += 1
-
-        # Yanıt verilecek mesajı bul ve gönder
-        response_index = user_messages_count[sender_id]
-        if response_index in response_map:
-            response = response_map[response_index]
-            await event.reply(response)
+    # Saatlik mesajları göndermek için arka plan görevini başlatma
+    asyncio.create_task(send_hourly_message(client))
 
     print("Bot çalışıyor...")
     await client.run_until_disconnected()
 
 if __name__ == '__main__':
     asyncio.run(main())
+    
