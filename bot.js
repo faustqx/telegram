@@ -1,6 +1,6 @@
 const MTProto = require('telegram-mtproto').MTProto;
 const { Storage } = require('mtproto-storage-fs');
-const input = require('input'); // Kullanıcıdan veri almak için
+const input = require('input');
 const path = require('path');
 
 // Telegram API kimlik bilgileri
@@ -13,7 +13,7 @@ const api = {
 
 // Sunucu ayarları
 const server = {
-  dev: false // Geliştirici modunda iseniz true yapın
+  dev: false // Geliştirici modda iseniz true yapın
 };
 
 const app = {
@@ -27,14 +27,10 @@ const phone = {
   num: '+12563655354', // Telefon numaranızı buraya yazın
 };
 
-const welcomeMessages = [
-  'Merhaba! Nasıl yardımcı olabilirim?',
-  'Hoş geldiniz! Size nasıl yardımcı olabilirim?',
-  'Merhaba! Yardım edebileceğim bir şey var mı?',
-  'Hoş geldiniz! Sorularınızı bekliyorum.'
-];
+const welcomeMessage = 'Merhaba! Botumuza hoş geldiniz. Size nasıl yardımcı olabilirim?';
 
-let messageCount = 0;
+// Gönderilen mesajları takip etmek için bir Set kullanıyoruz
+const sentMessages = new Set();
 
 async function getCode() {
   const { phone_code_hash } = await client('auth.sendCode', {
@@ -59,17 +55,18 @@ async function handleMessage(update) {
   const messages = update.updates.filter(u => u._ === 'updateNewMessage');
 
   for (const message of messages) {
-    if (messageCount < 4) {
-      const chatId = message.message.peer_id.user_id;
-      const responseMessage = welcomeMessages[messageCount];
-      
+    const chatId = message.message.peer_id.user_id;
+
+    // Daha önce bu kullanıcıya mesaj gönderilmediyse karşılama mesajı gönder
+    if (!sentMessages.has(chatId)) {
       await client('messages.sendMessage', {
         peer: { _: 'inputPeerUser', user_id: chatId },
-        message: responseMessage,
+        message: welcomeMessage,
         random_id: Math.random() * 0xffffff | 0
       });
 
-      messageCount++;
+      // Kullanıcıyı gönderilen mesajlar setine ekle
+      sentMessages.add(chatId);
     }
   }
 }
