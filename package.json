@@ -1,15 +1,14 @@
 {
   "name": "telegram",
   "version": "1.0.0",
-  "description": "Yeni yazan kullanıcılara tek seferlik karşılama mesajı gönderen Telegram botu.",
+  "description": "Kişisel hesaptan yeni yazan kullanıcılara karşılama mesajı gönderen Telegram botu.",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
   },
   "dependencies": {
-    "telegram-mtproto": "^4.0.3-beta",
-    "input": "^0.0.12",
-    "mtproto-storage-fs": "^4.0.3-beta"
+    "telegram": "^1.8.0",
+    "input": "^0.0.12"
   },
   "author": "devilhazretleri",
   "license": "ISC"
