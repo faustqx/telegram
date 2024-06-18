@@ -12,6 +12,6 @@
     "input": "^0.0.12",
     "mtproto-storage-fs": "^4.0.3-beta"
   },
-  "author": devillerden",
+  "author": "devillerden",
   "license": "ISC"
 }
