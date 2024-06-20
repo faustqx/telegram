@@ -16,6 +16,9 @@ hourly_message = (
     "Sevgili Tadinda Guven Ve Kalite Ön Planda"
 )
 
+# Gönderilecek fotoğrafın yolu
+photo_path = 'fotograf.jpg'
+
 # Grupların kullanıcı adlarını `gruplar.txt` dosyasından oku
 with open('gruplar.txt', 'r') as file:
     group_usernames = [line.strip() for line in file.readlines()]
@@ -27,9 +30,10 @@ async def send_hourly_message(client):
             try:
                 entity = await client.get_entity(group_username)
                 await client.send_message(entity, hourly_message)
-                print(f"{group_username} grubuna mesaj gönderildi.")
+                await client.send_file(entity, photo_path, caption=hourly_message)
+                print(f"{group_username} grubuna mesaj ve fotoğraf gönderildi.")
             except Exception as e:
-                print(f"{group_username} grubuna mesaj gönderilemedi: {e}")
+                print(f"{group_username} grubuna mesaj ve fotoğraf gönderilemedi: {e}")
         await asyncio.sleep(3600)  # 1 saat bekle
 
 async def main():
