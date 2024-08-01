@@ -2,9 +2,9 @@ from telethon import TelegramClient, events, Button
 import asyncio
 
 # API kimlik bilgilerinizi buraya yazın
-api_id = '27777717'
-api_hash = '7591c98b80d35f58d380e68e526ac589'
-phone_number = '+905318635833'
+api_id = '26272526'
+api_hash = '3bc52a566e33552e1df0cab7a904f6bd'
+phone_number = '+905346254881'
 
 # Her bir saatlik mesaj
 hourly_message = (
@@ -20,7 +20,7 @@ hourly_message = (
 photo_path = 'fotoğraf.jpg'
 
 # Buton ile yönlendirilecek link
-button_url = "https://mersinescort.netlify.app"
+button_url = "https://wa.me/+905346254881"
 button_text = "Detaylar için tıklayın"
 
 # Grupların kullanıcı adlarını `gruplar.txt` dosyasından oku
