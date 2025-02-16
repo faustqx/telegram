@@ -2,9 +2,9 @@ from telethon import TelegramClient, events, Button
 import asyncio
 
 # API kimlik bilgilerinizi buraya yazın
-api_id = '26272526'
-api_hash = '3bc52a566e33552e1df0cab7a904f6bd'
-phone_number = '+905346254881'
+api_id = '27399795'
+api_hash = 'c6d90d96b20a5f52c04f1e8cb3935c4a'
+phone_number = '+905300842733'
 
 # Her bir saatlik mesaj
 hourly_message = (
