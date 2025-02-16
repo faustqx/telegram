@@ -17,10 +17,10 @@ hourly_message = (
 )
 
 # Gönderilecek fotoğrafın yolu
-photo_path = 'fotoğraf.jpg'
+photo_path = 'fotograf.jpg'
 
 # Buton ile yönlendirilecek link
-button_url = "https://wa.me/+905346254881"
+button_url = "https://wa.me/+905300842733"
 button_text = "Detaylar için tıklayın"
 
 # Grupların kullanıcı adlarını `gruplar.txt` dosyasından oku
@@ -38,7 +38,7 @@ async def send_hourly_message(client):
                 print(f"{group_username} grubuna mesaj ve fotoğraf gönderildi.")
             except Exception as e:
                 print(f"{group_username} grubuna mesaj ve fotoğraf gönderilemedi: {e}")
-        await asyncio.sleep(3600)  # 1 saat bekle
+        await asyncio.sleep(3660)  # 1 saat bekle
 
 async def main():
     # TelegramClient'i başlatma
